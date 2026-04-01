@@ -12,9 +12,9 @@
         }
 
         body {
-            background: #000;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,61 +23,60 @@
             padding: 20px;
         }
 
-        .input-section {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .rate-input {
-            font-size: 48px;
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-            border: 2px solid #333;
-            border-radius: 10px;
-            background: #1a1a1a;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .rate-label {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .start-btn {
-            font-size: 24px;
-            padding: 15px 60px;
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-
-        .start-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .start-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .meter-display {
+        .container {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
-            margin-bottom: 30px;
+        }
+
+        #rateInput {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            color: #ffffff;
+            font-size: 48px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 250px;
+            font-weight: bold;
+        }
+
+        #rateInput:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        .label {
+            color: #888;
+            font-size: 18px;
+        }
+
+        .display-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .counter-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .dollar-sign {
-            font-size: 120px;
+            font-size: 80px;
             font-weight: bold;
-            color: #fff;
+            color: #00ff00;
+            margin-right: 10px;
         }
 
         .digits-container {
@@ -86,324 +85,320 @@
             align-items: center;
         }
 
-        .flip-card {
-            position: relative;
-            width: 80px;
-            height: 120px;
-            perspective: 1000px;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .flip-card.flipping .flip-card-inner {
-            animation: flip 0.6s ease-in-out;
-        }
-
-        @keyframes flip {
-            0% { transform: rotateX(0deg); }
-            50% { transform: rotateX(-90deg); }
-            100% { transform: rotateX(0deg); }
-        }
-
-        .digit-display {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        .digit {
             background: #1a1a1a;
             border: 2px solid #333;
-            border-radius: 8px;
+            border-radius: 20px;
+            width: 90px;
+            height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 72px;
+            font-size: 120px;
             font-weight: bold;
-            color: #fff;
-            backface-visibility: hidden;
+            line-height: 140px;
+            overflow: hidden;
+            position: relative;
+            perspective: 300px;
+        }
+
+        .digit-content {
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .digit.flip .digit-content {
+            animation: flipAnimation 0.4s ease-in-out;
+        }
+
+        .digit.wobble {
+            animation: wobbleAnimation 0.4s ease-in-out;
+        }
+
+        @keyframes flipAnimation {
+            0% {
+                transform: rotateX(0deg);
+            }
+            50% {
+                transform: rotateX(90deg);
+            }
+            100% {
+                transform: rotateX(0deg);
+            }
+        }
+
+        @keyframes wobbleAnimation {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(2deg);
+            }
+            75% {
+                transform: rotate(-2deg);
+            }
         }
 
         .decimal {
-            font-size: 72px;
+            font-size: 80px;
             font-weight: bold;
-            color: #fff;
             margin: 0 5px;
         }
 
         .rate-display {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
+            color: #888;
+            font-size: 24px;
         }
 
-        .controls {
+        #startButton {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 20px 60px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #startButton:hover {
+            transform: scale(1.05);
+            background: #f0f0f0;
+        }
+
+        #startButton:active {
+            transform: scale(0.95);
+        }
+
+        .bottom-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
             display: flex;
-            gap: 30px;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
         }
 
-        .control-btn {
-            width: 50px;
-            height: 50px;
+        .control-button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
             border-radius: 50%;
             background: transparent;
-            border: 2px solid #333;
-            color: #666;
+            color: #ffffff;
             font-size: 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            transition: border-color 0.2s, transform 0.2s;
         }
 
-        .control-btn:hover {
-            border-color: #fff;
-            color: #fff;
+        .control-button:hover {
+            border-color: #666;
+            transform: scale(1.1);
         }
 
-        .time-display {
+        .timer-display {
+            color: #888;
             font-size: 24px;
-            color: #666;
-            font-family: 'Courier New', monospace;
-        }
-
-        .hidden {
-            display: none;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="input-section" id="inputSection">
-        <input type="number" class="rate-input" id="rateInput" value="125" min="0" step="0.01">
-        <div class="rate-label">$ per hour</div>
-        <button class="start-btn" id="startBtn">Start</button>
+    <div class="container">
+        <div class="input-section">
+            <input type="number" id="rateInput" placeholder="125" min="0" step="0.01">
+            <div class="label">$ per hour</div>
+        </div>
+
+        <div class="display-section">
+            <div class="counter-display">
+                <div class="dollar-sign">$</div>
+                <div class="digits-container">
+                    <div class="digit" data-index="0"><div class="digit-content">0</div></div>
+                    <div class="digit" data-index="1"><div class="digit-content">0</div></div>
+                    <div class="digit" data-index="2"><div class="digit-content">0</div></div>
+                    <div class="digit" data-index="3"><div class="digit-content">0</div></div>
+                    <div class="decimal">.</div>
+                    <div class="digit" data-index="4"><div class="digit-content">0</div></div>
+                    <div class="digit" data-index="5"><div class="digit-content">0</div></div>
+                </div>
+            </div>
+            <div class="rate-display" id="rateDisplay">$0.00 / hour</div>
+        </div>
+
+        <button id="startButton">Start</button>
     </div>
 
-    <div class="input-section hidden" id="resumeSection">
-        <button class="start-btn" id="resumeBtn">Resume</button>
-    </div>
-
-    <div class="meter-display">
-        <div class="dollar-sign">$</div>
-        <div class="digits-container" id="digitsContainer"></div>
-    </div>
-
-    <div class="rate-display" id="rateDisplay">$0.00 / hour</div>
-
-    <div class="controls">
-        <button class="control-btn" id="resetBtn" title="Reset">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-                <path d="M21 3v5h-5"/>
-                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-                <path d="M3 21v-5h5"/>
-            </svg>
-        </button>
-        <div class="time-display" id="timeDisplay">00:00:00</div>
-        <button class="control-btn" id="soundBtn" title="Sound On/Off">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="soundIcon">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" id="soundWave"></path>
-            </svg>
-        </button>
+    <div class="bottom-controls">
+        <button class="control-button" id="resetButton" title="Reset">↻</button>
+        <div class="timer-display" id="timerDisplay">00:00:00</div>
+        <button class="control-button" id="soundButton" title="Toggle Sound">🔇</button>
     </div>
 
     <script>
-        let hourlyRate = 0;
-        let totalSeconds = 0;
-        let isRunning = false;
-        let intervalId = null;
-        let soundEnabled = true;
-        let currentAmount = 0;
-        let digitElements = [];
+        const state = {
+            isRunning: false,
+            isPaused: false,
+            hourlyRate: 0,
+            totalSeconds: 0,
+            accumulatedCost: 0,
+            startTime: null,
+            soundEnabled: false,
+            intervalId: null,
+            audioContext: null
+        };
 
-        const rateInput = document.getElementById('rateInput');
-        const startBtn = document.getElementById('startBtn');
-        const resumeBtn = document.getElementById('resumeBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const soundBtn = document.getElementById('soundBtn');
-        const timeDisplay = document.getElementById('timeDisplay');
-        const rateDisplay = document.getElementById('rateDisplay');
-        const digitsContainer = document.getElementById('digitsContainer');
-        const inputSection = document.getElementById('inputSection');
-        const resumeSection = document.getElementById('resumeSection');
-        const soundWave = document.getElementById('soundWave');
+        const elements = {
+            rateInput: document.getElementById('rateInput'),
+            startButton: document.getElementById('startButton'),
+            rateDisplay: document.getElementById('rateDisplay'),
+            timerDisplay: document.getElementById('timerDisplay'),
+            resetButton: document.getElementById('resetButton'),
+            soundButton: document.getElementById('soundButton'),
+            digits: document.querySelectorAll('.digit')
+        };
 
-        function initializeDigits() {
-            digitsContainer.innerHTML = '';
-            digitElements = [];
-            
-            // Create 7 digits before decimal (for up to $9,999,999)
-            for (let i = 0; i < 7; i++) {
-                const card = createFlipCard();
-                digitsContainer.appendChild(card);
-                digitElements.push(card);
-            }
-            
-            // Add decimal point
-            const decimal = document.createElement('div');
-            decimal.className = 'decimal';
-            decimal.textContent = '.';
-            digitsContainer.appendChild(decimal);
-            
-            // Create 2 digits after decimal
-            for (let i = 0; i < 2; i++) {
-                const card = createFlipCard();
-                digitsContainer.appendChild(card);
-                digitElements.push(card);
+        // Initialize Audio Context
+        function initAudio() {
+            if (!state.audioContext) {
+                state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
         }
 
-        function createFlipCard() {
-            const card = document.createElement('div');
-            card.className = 'flip-card';
-            
-            const inner = document.createElement('div');
-            inner.className = 'flip-card-inner';
-            
-            const display = document.createElement('div');
-            display.className = 'digit-display';
-            display.textContent = '0';
-            
-            inner.appendChild(display);
-            card.appendChild(inner);
-            
-            return card;
-        }
+        // Play tick sound
+        function playTick() {
+            if (!state.soundEnabled || !state.audioContext) return;
 
-        function updateDisplay(amount) {
-            // Format to 9 total digits (7 before decimal, 2 after)
-            const formattedAmount = amount.toFixed(2).padStart(10, '0').replace('.', '');
-            
-            for (let i = 0; i < digitElements.length; i++) {
-                const card = digitElements[i];
-                const display = card.querySelector('.digit-display');
-                const newDigit = formattedAmount[i];
-                
-                if (display.textContent !== newDigit) {
-                    // Trigger flip animation
-                    card.classList.add('flipping');
-                    
-                    setTimeout(() => {
-                        display.textContent = newDigit;
-                    }, 300);
-                    
-                    setTimeout(() => {
-                        card.classList.remove('flipping');
-                    }, 600);
-                    
-                    if (soundEnabled) {
-                        playTickSound();
-                    }
-                }
-            }
-        }
+            const oscillator = state.audioContext.createOscillator();
+            const gainNode = state.audioContext.createGain();
 
-        function playTickSound() {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
             oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
+            gainNode.connect(state.audioContext.destination);
+
             oscillator.frequency.value = 800;
             oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.1);
+
+            gainNode.gain.setValueAtTime(0.1, state.audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, state.audioContext.currentTime + 0.05);
+
+            oscillator.start(state.audioContext.currentTime);
+            oscillator.stop(state.audioContext.currentTime + 0.05);
         }
 
+        // Update display
+        function updateDisplay(cost) {
+            const costString = cost.toFixed(2).padStart(7, '0');
+            const digits = costString.replace('.', '').split('');
+
+            digits.forEach((newDigit, index) => {
+                const digitElement = elements.digits[index];
+                const digitContent = digitElement.querySelector('.digit-content');
+                const currentDigit = digitContent.textContent;
+
+                if (currentDigit !== newDigit) {
+                    // Trigger flip animation
+                    digitElement.classList.add('flip');
+                    digitContent.textContent = newDigit;
+
+                    // Trigger wobble on adjacent digits
+                    if (index > 0) {
+                        elements.digits[index - 1].classList.add('wobble');
+                    }
+                    if (index < elements.digits.length - 1) {
+                        elements.digits[index + 1].classList.add('wobble');
+                    }
+
+                    // Remove animation classes
+                    setTimeout(() => {
+                        digitElement.classList.remove('flip');
+                        elements.digits.forEach(d => d.classList.remove('wobble'));
+                    }, 400);
+                }
+            });
+        }
+
+        // Update timer display
         function updateTimer() {
-            totalSeconds++;
-            
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            
-            timeDisplay.textContent = 
+            const hours = Math.floor(state.totalSeconds / 3600);
+            const minutes = Math.floor((state.totalSeconds % 3600) / 60);
+            const seconds = state.totalSeconds % 60;
+
+            elements.timerDisplay.textContent = 
                 `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            
-            // Calculate cost: (rate per hour / 3600 seconds) * total seconds
-            currentAmount = (hourlyRate / 3600) * totalSeconds;
-            updateDisplay(currentAmount);
         }
 
-        function start() {
-            hourlyRate = parseFloat(rateInput.value) || 0;
-            
-            if (hourlyRate <= 0) {
-                alert('Please enter a valid hourly rate');
-                return;
-            }
-            
-            isRunning = true;
-            inputSection.classList.add('hidden');
-            resumeSection.classList.add('hidden');
-            rateDisplay.textContent = `$${hourlyRate.toFixed(2)} / hour`;
-            
-            intervalId = setInterval(updateTimer, 1000);
+        // Main counter function
+        function tick() {
+            state.totalSeconds++;
+            state.accumulatedCost = (state.hourlyRate / 3600) * state.totalSeconds;
+            updateDisplay(state.accumulatedCost);
+            updateTimer();
+            playTick();
         }
 
-        function pause() {
-            isRunning = false;
-            clearInterval(intervalId);
-            resumeSection.classList.remove('hidden');
-        }
+        // Start/Pause/Resume button
+        elements.startButton.addEventListener('click', () => {
+            initAudio();
 
-        function resume() {
-            isRunning = true;
-            resumeSection.classList.add('hidden');
-            intervalId = setInterval(updateTimer, 1000);
-        }
+            if (!state.isRunning) {
+                // Start
+                state.hourlyRate = parseFloat(elements.rateInput.value) || 0;
+                elements.rateDisplay.textContent = `$${state.hourlyRate.toFixed(2)} / hour`;
+                state.isRunning = true;
+                state.isPaused = false;
+                elements.startButton.textContent = 'Pause';
+                elements.rateInput.disabled = true;
 
-        function reset() {
-            isRunning = false;
-            clearInterval(intervalId);
-            totalSeconds = 0;
-            currentAmount = 0;
-            timeDisplay.textContent = '00:00:00';
-            updateDisplay(0);
-            inputSection.classList.remove('hidden');
-            resumeSection.classList.add('hidden');
-        }
-
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            if (soundEnabled) {
-                soundWave.style.display = 'block';
-                soundBtn.style.color = '#666';
+                state.intervalId = setInterval(tick, 1000);
+            } else if (!state.isPaused) {
+                // Pause
+                clearInterval(state.intervalId);
+                state.isPaused = true;
+                elements.startButton.textContent = 'Resume';
             } else {
-                soundWave.style.display = 'none';
-                soundBtn.style.color = '#333';
-            }
-        }
-
-        startBtn.addEventListener('click', start);
-        resumeBtn.addEventListener('click', resume);
-        resetBtn.addEventListener('click', reset);
-        soundBtn.addEventListener('click', toggleSound);
-
-        // Pause on clicking the meter display
-        document.querySelector('.meter-display').addEventListener('click', () => {
-            if (isRunning) {
-                pause();
+                // Resume
+                state.isPaused = false;
+                elements.startButton.textContent = 'Pause';
+                state.intervalId = setInterval(tick, 1000);
             }
         });
 
-        // Initialize
-        initializeDigits();
+        // Reset button
+        elements.resetButton.addEventListener('click', () => {
+            clearInterval(state.intervalId);
+            state.isRunning = false;
+            state.isPaused = false;
+            state.totalSeconds = 0;
+            state.accumulatedCost = 0;
+            elements.startButton.textContent = 'Start';
+            elements.rateInput.disabled = false;
+            updateDisplay(0);
+            updateTimer();
+        });
+
+        // Sound toggle
+        elements.soundButton.addEventListener('click', () => {
+            initAudio();
+            state.soundEnabled = !state.soundEnabled;
+            elements.soundButton.textContent = state.soundEnabled ? '🔊' : '🔇';
+        });
+
+        // Update rate display on input
+        elements.rateInput.addEventListener('input', (e) => {
+            const rate = parseFloat(e.target.value) || 0;
+            elements.rateDisplay.textContent = `$${rate.toFixed(2)} / hour`;
+        });
+
+        // Initialize display
         updateDisplay(0);
+        updateTimer();
     </script>
 </body>
 </html>
