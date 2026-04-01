@@ -12,7 +12,7 @@
         }
 
         body {
-            background-color: #000;
+            background: #000;
             color: #fff;
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -33,32 +33,19 @@
             margin-bottom: 40px;
         }
 
-        .input-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        label {
-            font-size: 18px;
-            color: #999;
-        }
-
-        input[type="number"] {
+        .rate-input {
             background: #1a1a1a;
             border: 2px solid #333;
             color: #fff;
-            padding: 12px 20px;
             font-size: 24px;
+            padding: 15px 25px;
             border-radius: 8px;
-            width: 200px;
             text-align: center;
+            width: 250px;
+            margin-bottom: 20px;
         }
 
-        input[type="number"]:focus {
+        .rate-input:focus {
             outline: none;
             border-color: #666;
         }
@@ -67,16 +54,16 @@
             background: #fff;
             color: #000;
             border: none;
-            padding: 15px 50px;
             font-size: 20px;
-            font-weight: bold;
+            padding: 15px 50px;
             border-radius: 8px;
             cursor: pointer;
+            font-weight: bold;
             transition: all 0.3s ease;
         }
 
         .start-btn:hover {
-            background: #ddd;
+            background: #e0e0e0;
             transform: scale(1.05);
         }
 
@@ -87,40 +74,35 @@
             transform: scale(1);
         }
 
-        .meter-display {
+        .display-section {
             margin: 60px 0;
         }
 
-        .cost-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .dollar-sign {
+            font-size: 80px;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 10px;
+            margin-top: 20px;
         }
 
         .flip-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: inline-flex;
             gap: 8px;
-            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .digit-wrapper {
+            display: inline-block;
+            position: relative;
         }
 
         .flip-card {
             position: relative;
             width: 80px;
             height: 120px;
-            perspective: 1000px;
-        }
-
-        .flip-card.separator {
-            width: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            color: #333;
+            perspective: 600px;
         }
 
         .flip-card-inner {
@@ -129,180 +111,189 @@
             height: 100%;
         }
 
-        .flip-card-face {
+        .card-face {
             position: absolute;
             width: 100%;
             height: 50%;
             background: #1a1a1a;
-            border: 2px solid #000;
+            border: 2px solid #333;
             overflow: hidden;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
         }
 
-        .flip-card-top {
+        .card-top {
             top: 0;
             border-radius: 8px 8px 0 0;
             border-bottom: 1px solid #000;
+            align-items: flex-start;
         }
 
-        .flip-card-bottom {
+        .card-bottom {
             bottom: 0;
             border-radius: 0 0 8px 8px;
             border-top: 1px solid #000;
+            align-items: flex-end;
         }
 
-        .flip-card-number {
+        .card-face span {
             font-size: 80px;
             font-weight: bold;
-            color: #fff;
             line-height: 1;
-            position: absolute;
-            width: 100%;
+            color: #fff;
         }
 
-        .flip-card-top .flip-card-number {
-            top: 10px;
+        .card-top span {
+            transform: translateY(0);
         }
 
-        .flip-card-bottom .flip-card-number {
-            bottom: 10px;
+        .card-bottom span {
+            transform: translateY(-50%);
         }
 
-        .flip-card-flap {
+        .flip-card-back-top,
+        .flip-card-back-bottom {
             position: absolute;
             width: 100%;
             height: 50%;
-            top: 0;
             background: #1a1a1a;
-            border: 2px solid #000;
+            border: 2px solid #333;
+            overflow: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .flip-card-back-top {
+            top: 0;
             border-radius: 8px 8px 0 0;
             border-bottom: 1px solid #000;
             transform-origin: bottom;
-            transform-style: preserve-3d;
-            overflow: hidden;
+            align-items: flex-start;
+        }
+
+        .flip-card-back-bottom {
+            bottom: 0;
+            border-radius: 0 0 8px 8px;
+            border-top: 1px solid #000;
+            transform-origin: top;
+            align-items: flex-end;
+        }
+
+        .flip-card-back-top span {
+            font-size: 80px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            transform: translateY(0);
+        }
+
+        .flip-card-back-bottom span {
+            font-size: 80px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            transform: translateY(-50%);
+        }
+
+        .flip-card.flipping .flip-card-back-top {
+            animation: flipTop 0.4s ease-in;
             z-index: 2;
         }
 
-        .flip-card-flap .flip-card-number {
-            font-size: 80px;
-            font-weight: bold;
-            color: #fff;
-            line-height: 1;
-            position: absolute;
-            width: 100%;
-            top: 10px;
+        .flip-card.flipping .flip-card-back-bottom {
+            animation: flipBottom 0.4s ease-out 0.4s;
+            z-index: 1;
         }
 
-        @keyframes flip {
+        @keyframes flipTop {
             0% {
                 transform: rotateX(0deg);
             }
             100% {
-                transform: rotateX(-180deg);
+                transform: rotateX(-90deg);
             }
         }
 
-        .flip-card-flap.flipping {
-            animation: flip 0.4s ease-in-out;
+        @keyframes flipBottom {
+            0% {
+                transform: rotateX(90deg);
+            }
+            100% {
+                transform: rotateX(0deg);
+            }
+        }
+
+        .flip-card.wobble .card-face {
+            animation: wobble 0.4s ease-in-out;
         }
 
         @keyframes wobble {
-            0%, 100% {
-                transform: rotateX(0deg);
-            }
-            25% {
-                transform: rotateX(2deg);
-            }
-            75% {
-                transform: rotateX(-2deg);
-            }
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
         }
 
-        .flip-card-inner.wobble {
-            animation: wobble 0.4s ease-in-out;
+        .separator {
+            font-size: 80px;
+            font-weight: bold;
+            margin: 0 5px;
         }
 
         .controls {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 30px;
             margin-top: 40px;
+            align-items: center;
         }
 
         .control-btn {
-            background: none;
+            background: transparent;
             border: 2px solid #333;
-            color: #666;
-            width: 40px;
-            height: 40px;
+            color: #fff;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
+            font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
             transition: all 0.3s ease;
         }
 
         .control-btn:hover {
             border-color: #666;
-            color: #999;
+            background: #1a1a1a;
         }
 
         .elapsed-time {
-            font-size: 14px;
             color: #666;
-            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: normal;
         }
 
-        @media (max-width: 600px) {
-            .flip-card {
-                width: 60px;
-                height: 90px;
-            }
-
-            .flip-card-number {
-                font-size: 60px !important;
-            }
-
-            .flip-card-top .flip-card-number {
-                top: 8px !important;
-            }
-
-            .flip-card-bottom .flip-card-number {
-                bottom: 8px !important;
-            }
-
-            .flip-card-flap .flip-card-number {
-                font-size: 60px !important;
-                top: 8px !important;
-            }
-
-            input[type="number"] {
-                width: 150px;
-                font-size: 20px;
-            }
+        .per-hour {
+            color: #666;
+            font-size: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="input-section">
-            <div class="input-group">
-                <label for="hourlyRate">Hourly Rate ($):</label>
-                <input type="number" id="hourlyRate" value="150" min="0" step="0.01">
-                <button class="start-btn" id="startBtn">START</button>
-            </div>
+            <input type="number" class="rate-input" id="rateInput" placeholder="150.00" step="0.01" min="0">
+            <div style="color: #666; margin-bottom: 20px;">$ per hour</div>
+            <button class="start-btn" id="startBtn">Start</button>
         </div>
 
-        <div class="meter-display">
-            <div class="cost-label">CURRENT COST</div>
-            <div class="flip-container" id="flipContainer">
-                <!-- Will be populated by JavaScript -->
-            </div>
+        <div class="display-section">
+            <span class="dollar-sign">$</span>
+            <div class="flip-container" id="flipContainer"></div>
+            <div class="per-hour" id="rateDisplay"></div>
         </div>
 
         <div class="controls">
@@ -313,31 +304,62 @@
     </div>
 
     <script>
+        let hourlyRate = 0;
         let isRunning = false;
-        let startTime = null;
+        let startTime = 0;
         let elapsedSeconds = 0;
-        let currentCost = 0;
         let intervalId = null;
         let soundEnabled = true;
-        let hourlyRate = 150;
+        let currentDisplayValue = '00.00';
 
+        const rateInput = document.getElementById('rateInput');
         const startBtn = document.getElementById('startBtn');
         const resetBtn = document.getElementById('resetBtn');
         const soundBtn = document.getElementById('soundBtn');
-        const hourlyRateInput = document.getElementById('hourlyRate');
+        const elapsedTimeEl = document.getElementById('elapsedTime');
+        const rateDisplay = document.getElementById('rateDisplay');
         const flipContainer = document.getElementById('flipContainer');
-        const elapsedTimeDisplay = document.getElementById('elapsedTime');
 
-        // Audio context for tick sound
-        let audioContext;
-        
-        function playTickSound() {
+        // Create flip cards for display (5 digits + 1 dot)
+        function initializeDisplay() {
+            flipContainer.innerHTML = '';
+            const digits = ['0', '0', '.', '0', '0'];
+            
+            digits.forEach((char, index) => {
+                if (char === '.') {
+                    const sep = document.createElement('span');
+                    sep.className = 'separator';
+                    sep.textContent = '.';
+                    flipContainer.appendChild(sep);
+                } else {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'digit-wrapper';
+                    wrapper.innerHTML = `
+                        <div class="flip-card" data-index="${index}">
+                            <div class="flip-card-inner">
+                                <div class="card-face card-top">
+                                    <span>0</span>
+                                </div>
+                                <div class="card-face card-bottom">
+                                    <span>0</span>
+                                </div>
+                                <div class="flip-card-back-top">
+                                    <span>0</span>
+                                </div>
+                                <div class="flip-card-back-bottom">
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    flipContainer.appendChild(wrapper);
+                }
+            });
+        }
+
+        function playFlipSound() {
             if (!soundEnabled) return;
-            
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
@@ -348,181 +370,113 @@
             oscillator.type = 'sine';
             
             gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
             
             oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.05);
+            oscillator.stop(audioContext.currentTime + 0.1);
         }
 
-        function initializeDisplay() {
-            flipContainer.innerHTML = '';
-            const display = '$00.00';
+        function updateDigit(index, newValue) {
+            const cards = document.querySelectorAll('.flip-card');
+            let cardIndex = index;
+            if (index >= 2) cardIndex = index - 1; // Adjust for separator
             
-            for (let i = 0; i < display.length; i++) {
-                const char = display[i];
-                if (char === '$' || char === '.') {
-                    const separator = document.createElement('div');
-                    separator.className = 'flip-card separator';
-                    separator.textContent = char;
-                    flipContainer.appendChild(separator);
-                } else {
-                    const card = createFlipCard(char, i);
-                    flipContainer.appendChild(card);
+            const card = cards[cardIndex];
+            if (!card) return;
+
+            const currentTop = card.querySelector('.card-top span');
+            const currentBottom = card.querySelector('.card-bottom span');
+            const backTop = card.querySelector('.flip-card-back-top span');
+            const backBottom = card.querySelector('.flip-card-back-bottom span');
+            
+            const currentValue = currentTop.textContent;
+            
+            if (currentValue === newValue) return;
+
+            // Set the new value on back cards
+            backTop.textContent = currentValue;
+            backBottom.textContent = newValue;
+
+            // Trigger flip animation
+            card.classList.add('flipping');
+            playFlipSound();
+
+            // Wobble adjacent cards
+            cards.forEach((c, i) => {
+                if (i !== cardIndex) {
+                    c.classList.add('wobble');
+                    setTimeout(() => c.classList.remove('wobble'), 400);
+                }
+            });
+
+            setTimeout(() => {
+                currentTop.textContent = newValue;
+                currentBottom.textContent = newValue;
+                card.classList.remove('flipping');
+            }, 800);
+        }
+
+        function updateDisplay(value) {
+            const formatted = value.toFixed(2).padStart(5, '0');
+            const newDisplay = formatted.slice(0, 2) + '.' + formatted.slice(2);
+            
+            for (let i = 0; i < newDisplay.length; i++) {
+                if (newDisplay[i] !== '.' && currentDisplayValue[i] !== newDisplay[i]) {
+                    updateDigit(i, newDisplay[i]);
                 }
             }
+            
+            currentDisplayValue = newDisplay;
         }
 
-        function createFlipCard(digit, index) {
-            const card = document.createElement('div');
-            card.className = 'flip-card';
-            card.dataset.index = index;
-            card.dataset.value = digit;
-            
-            const inner = document.createElement('div');
-            inner.className = 'flip-card-inner';
-            
-            // Top half (current digit)
-            const top = document.createElement('div');
-            top.className = 'flip-card-face flip-card-top';
-            const topNumber = document.createElement('div');
-            topNumber.className = 'flip-card-number';
-            topNumber.textContent = digit;
-            top.appendChild(topNumber);
-            
-            // Bottom half (current digit)
-            const bottom = document.createElement('div');
-            bottom.className = 'flip-card-face flip-card-bottom';
-            const bottomNumber = document.createElement('div');
-            bottomNumber.className = 'flip-card-number';
-            bottomNumber.textContent = digit;
-            bottom.appendChild(bottomNumber);
-            
-            inner.appendChild(top);
-            inner.appendChild(bottom);
-            card.appendChild(inner);
-            
-            return card;
-        }
-
-        function updateDigit(card, newDigit) {
-            const oldDigit = card.dataset.value;
-            if (oldDigit === newDigit) return;
-            
-            card.dataset.value = newDigit;
-            const inner = card.querySelector('.flip-card-inner');
-            const top = card.querySelector('.flip-card-top .flip-card-number');
-            const bottom = card.querySelector('.flip-card-bottom .flip-card-number');
-            
-            // Create flap for animation
-            const flap = document.createElement('div');
-            flap.className = 'flip-card-flap flipping';
-            const flapNumber = document.createElement('div');
-            flapNumber.className = 'flip-card-number';
-            flapNumber.textContent = oldDigit;
-            flap.appendChild(flapNumber);
-            card.appendChild(flap);
-            
-            // Update bottom to show new digit immediately
-            bottom.textContent = newDigit;
-            
-            playTickSound();
-            
-            // Remove flap after animation
-            setTimeout(() => {
-                flap.remove();
-                top.textContent = newDigit;
-            }, 400);
-        }
-
-        function wobbleCard(card) {
-            const inner = card.querySelector('.flip-card-inner');
-            inner.classList.add('wobble');
-            setTimeout(() => {
-                inner.classList.remove('wobble');
-            }, 400);
-        }
-
-        function updateDisplay(cost) {
-            const formattedCost = cost.toFixed(2);
-            const display = `$${formattedCost.padStart(5, '0')}`;
-            
-            const cards = Array.from(flipContainer.children).filter(el => 
-                el.classList.contains('flip-card') && !el.classList.contains('separator')
-            );
-            
-            let displayIndex = 0;
-            for (let i = 0; i < display.length; i++) {
-                if (display[i] !== '$' && display[i] !== '.') {
-                    if (displayIndex < cards.length) {
-                        const card = cards[displayIndex];
-                        const newDigit = display[i];
-                        
-                        if (card.dataset.value !== newDigit) {
-                            updateDigit(card, newDigit);
-                            
-                            // Wobble adjacent cards
-                            if (displayIndex > 0) {
-                                wobbleCard(cards[displayIndex - 1]);
-                            }
-                            if (displayIndex < cards.length - 1) {
-                                wobbleCard(cards[displayIndex + 1]);
-                            }
-                        }
-                        displayIndex++;
-                    }
-                }
-            }
-        }
-
-        function updateElapsedTime() {
+        function updateTimer() {
+            elapsedSeconds++;
             const hours = Math.floor(elapsedSeconds / 3600);
             const minutes = Math.floor((elapsedSeconds % 3600) / 60);
             const seconds = elapsedSeconds % 60;
             
-            elapsedTimeDisplay.textContent = 
+            elapsedTimeEl.textContent = 
                 `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
-
-        function tick() {
-            elapsedSeconds++;
-            currentCost = (hourlyRate / 3600) * elapsedSeconds;
+            
+            const costPerSecond = hourlyRate / 3600;
+            const currentCost = costPerSecond * elapsedSeconds;
             updateDisplay(currentCost);
-            updateElapsedTime();
         }
 
         startBtn.addEventListener('click', () => {
             if (!isRunning) {
-                hourlyRate = parseFloat(hourlyRateInput.value) || 0;
-                if (hourlyRate <= 0) {
+                const rate = parseFloat(rateInput.value);
+                if (isNaN(rate) || rate <= 0) {
                     alert('Please enter a valid hourly rate');
                     return;
                 }
                 
+                hourlyRate = rate;
                 isRunning = true;
-                startBtn.textContent = 'PAUSE';
-                startBtn.style.background = '#ff6b6b';
-                hourlyRateInput.disabled = true;
+                startTime = Date.now();
+                rateDisplay.textContent = `$${hourlyRate.toFixed(2)} / hour`;
                 
-                startTime = Date.now() - (elapsedSeconds * 1000);
-                intervalId = setInterval(tick, 1000);
+                intervalId = setInterval(updateTimer, 1000);
+                
+                startBtn.textContent = 'Pause';
+                rateInput.disabled = true;
             } else {
                 isRunning = false;
-                startBtn.textContent = 'RESUME';
-                startBtn.style.background = '#4ecdc4';
                 clearInterval(intervalId);
+                startBtn.textContent = 'Resume';
             }
         });
 
         resetBtn.addEventListener('click', () => {
             isRunning = false;
-            elapsedSeconds = 0;
-            currentCost = 0;
-            startBtn.textContent = 'START';
-            startBtn.style.background = '#fff';
-            hourlyRateInput.disabled = false;
             clearInterval(intervalId);
+            elapsedSeconds = 0;
+            elapsedTimeEl.textContent = '00:00:00';
+            rateDisplay.textContent = '';
+            startBtn.textContent = 'Start';
+            rateInput.disabled = false;
+            currentDisplayValue = '00.00';
             initializeDisplay();
-            updateElapsedTime();
         });
 
         soundBtn.addEventListener('click', () => {
@@ -532,7 +486,6 @@
 
         // Initialize
         initializeDisplay();
-        updateElapsedTime();
     </script>
 </body>
 </html>
